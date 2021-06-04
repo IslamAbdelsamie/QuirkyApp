@@ -1,0 +1,23 @@
+﻿@model IEnumerable<QuirkyApp.Models.Books>
+
+@{
+    ViewBag.Title = "Book Shop";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<h2>Books Shop</h2>
+<div class="recent-book-sec">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-3">
+                <div class="item">
+                    <img src="@Url.Content(item.Image)" alt="img">
+                    <h3><a href="~/Books/Details/@item.Id">@item.Title</a></h3>
+                    <h6><span class="price">$@item.Price</span> / <a href="~/Books/Details/@item.Id">Buy Now</a></h6>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>

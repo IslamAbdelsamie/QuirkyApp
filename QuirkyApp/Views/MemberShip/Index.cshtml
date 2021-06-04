@@ -1,0 +1,54 @@
+﻿@model IEnumerable<QuirkyApp.Models.MemberShipType>
+
+@{
+    ViewBag.Title = "MemberShip";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+
+<p>
+    @Html.ActionLink("Add New Membership", "Create",null, new { @class = "btn btn-default" })
+</p>
+@if (TempData["SM"]!= null)
+{
+    <div class="alert alert-success">@TempData["SM"]</div>
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SignUpFee)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ChargeRateOnOneMonth)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ChargeRateOnSixMonth)
+        </th>
+        <th>Edit</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SignUpFee)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ChargeRateOnOneMonth)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ChargeRateOnSixMonth)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
+

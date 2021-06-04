@@ -1,0 +1,97 @@
+﻿@model IEnumerable<QuirkyApp.Models.BookRent>
+
+@{
+    ViewBag.Title = "Rent Status";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+@if (TempData["SM"] != null)
+{
+    <div class="alert alert-success">@TempData["SM"]</div>
+}
+<table class="table table-hover">
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Title
+        </th>
+        <th>
+            Start Date
+        </th>
+        <th>
+            Scheduled End Date
+        </th>
+        <th>
+            Rent Price
+        </th>
+        <th>
+            Additional Charge
+        </th>
+        <th>
+            Rent Type
+        </th>
+        <th>
+            Status
+        </th>
+
+        <th>
+            Actions
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ApplicationUser.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Books.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ScheduledEndDate)
+        </td>
+        <td>
+            $@Html.DisplayFor(modelItem => item.RentPrice)
+        </td>
+        <td>
+            $@Html.DisplayFor(modelItem => item.AdditionalCharge)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RentType.RentName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status.StatusName)
+        </td>
+        @if (item.StatusId == 1)
+        {
+            <td>
+                @Html.ActionLink("Approve", "Approve", new { id = item.Id })|
+                @Html.ActionLink("Decline", "Reject", new { id = item.Id })
+            </td>
+        }
+        else if (item.StatusId == 2)
+        {
+            <td>
+                @Html.ActionLink("PickUp", "PickUp", new { id = item.Id })
+            </td>
+        }
+        else if (item.StatusId == 4)
+        {
+            <td>
+                @Html.ActionLink("Close", "Close", new { id = item.Id })
+            </td>
+        }
+        else
+        {
+            <td></td>
+        }
+
+    </tr>
+}
+
+</table>

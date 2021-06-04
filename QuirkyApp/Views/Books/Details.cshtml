@@ -1,0 +1,87 @@
+﻿@model QuirkyApp.Models.Books
+
+@{
+    ViewBag.Title = "Book Details";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+
+<h1>@Model.Title</h1>
+<div class="row">
+    <div class="col-md-6 slider-sec">
+        <!-- main slider carousel -->
+        <div id="myCarousel" class="carousel slide">
+            <!-- main slider carousel items -->
+            <div class="carousel-inner">
+                <div class="active item carousel-item" data-slide-number="0">
+                    <img src="@Url.Content(Model.Image)" class="img-fluid">
+                </div>
+                <div class="item carousel-item" data-slide-number="1">
+                    <img src="images/product2.jpg" class="img-fluid">
+                </div>
+                <div class="item carousel-item" data-slide-number="2">
+                    <img src="images/product3.jpg" class="img-fluid">
+                </div>
+            </div>
+
+        </div>
+        <!--/main slider carousel-->
+    </div>
+    <div class="col-md-6 slider-content">
+        <p>@Model.Author</p>
+        <p>@Model.Description</p>
+        <ul>
+            <li>
+                <span class="name">Genre</span><span class="clm">:</span>
+                <span class="price">@Model.Genres.GenreName</span>
+            </li>
+            <li>
+                <span class="name">Price</span><span class="clm">:</span>
+                <span class="price">$@Model.Price</span>
+            </li>
+            <li>
+                <span class="name">Pages</span><span class="clm">:</span>
+                <span class="price">@Model.Pages</span>
+            </li>
+            <li>
+                <span class="name">Availability</span><span class="clm">:</span>
+                <span class="price final" id="availiability">@Model.Availiability</span>
+                <p class="text-danger" id="error">This Book is not available currently</p>
+            </li>
+        </ul>
+        @if (Request.IsAuthenticated && !User.IsInRole("Admin"))
+        {
+            <div class="btn-sec">
+                @Html.ActionLink("Request Rent","BookRequest","BookRent", new { Id = Model.Id }, new { @class = "btn btn-default submit" })
+            </div>
+        }
+        @*<div class="btn-sec">
+                <button class="btn ">Add To cart</button>
+                <button class="btn black">Buy Now</button>
+            </div>*@
+    </div>
+</div>
+
+
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}
+
+<script src="~/Scripts/jquery-3.5.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#error").fadeOut();
+        $(function () {
+            $(".submit").click(function () {
+                if ($("#availiability").text() == "0") {
+                    $("#error").fadeIn();
+                    return false;
+                }
+            });
+        });
+    });
+</script>
+

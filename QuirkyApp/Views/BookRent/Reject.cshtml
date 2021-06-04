@@ -1,0 +1,75 @@
+﻿@model QuirkyApp.Models.BookRent
+
+@{
+    ViewBag.Title = "Reject";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+
+@using (Html.BeginForm("Reject","BookRent", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <h1>@Model.Books.Title</h1>
+    <div class="row">
+        <div class="col-md-6 slider-sec">
+            <!-- main slider carousel -->
+            <div id="myCarousel" class="carousel slide">
+                <!-- main slider carousel items -->
+                <div class="carousel-inner">
+                    <div class="active item carousel-item" data-slide-number="0">
+                        <img src="@Url.Content(Model.Books.Image)" class="img-fluid">
+                    </div>
+                    <div class="item carousel-item" data-slide-number="1">
+                        <img src="images/product2.jpg" class="img-fluid">
+                    </div>
+                    <div class="item carousel-item" data-slide-number="2">
+                        <img src="images/product3.jpg" class="img-fluid">
+                    </div>
+                </div>
+
+            </div>
+            <!--/main slider carousel-->
+        </div>
+        <div class="col-md-6 slider-content">
+            <p>@Model.Books.Author</p>
+            <p>@Model.Books.Description</p>
+            <ul>
+                <li>
+                    <span class="name">Genre</span><span class="clm">:</span>
+                    <span class="price">@Model.Books.Genres.GenreName</span>
+                </li>
+                <li>
+                    <span class="name">Price</span><span class="clm">:</span>
+                    <span class="price">$@Model.Books.Price</span>
+                </li>
+                <li>
+                    <span class="name">Pages</span><span class="clm">:</span>
+                    <span class="price">@Model.Books.Pages</span>
+                </li>
+                <li>
+                    <span class="name">User</span><span class="clm">:</span>
+                    <span class="price">@Model.ApplicationUser.Email</span>
+                </li>
+                <li>
+                    <span class="name">Rent Type</span><span class="clm">:</span>
+                    <span class="price">@Model.RentType.RentName</span>
+                </li>
+                <li>
+                    <span class="name">Rent Price</span><span class="clm">:</span>
+                    <span class="price">$@Model.RentPrice</span>
+                </li>
+
+
+
+            </ul>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Decline" class="btn btn-default" id="save" />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        </div>
+    </div>
+}

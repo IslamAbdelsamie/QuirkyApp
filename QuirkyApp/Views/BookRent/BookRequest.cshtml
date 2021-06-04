@@ -1,0 +1,76 @@
+﻿@model QuirkyApp.ViewModels.BookRentViewModel
+
+@{
+    ViewBag.Title = "Rent Request";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+@using (Html.BeginForm("BookRequest","BookRent",FormMethod.Post))
+{
+
+<h1>@Model.Books.Title</h1>
+<div class="row">
+    <div class="col-md-6 slider-sec">
+        <!-- main slider carousel -->
+        <div id="myCarousel" class="carousel slide">
+            <!-- main slider carousel items -->
+            <div class="carousel-inner">
+                <div class="active item carousel-item" data-slide-number="0">
+                    <img src="@Url.Content(Model.Books.Image)" class="img-fluid">
+                </div>
+                <div class="item carousel-item" data-slide-number="1">
+                    <img src="images/product2.jpg" class="img-fluid">
+                </div>
+                <div class="item carousel-item" data-slide-number="2">
+                    <img src="images/product3.jpg" class="img-fluid">
+                </div>
+            </div>
+
+        </div>
+        <!--/main slider carousel-->
+    </div>
+    <div class="col-md-6 slider-content">
+        <p>@Model.Books.Author</p>
+        <p>@Model.Books.Description</p>
+        <ul>
+            <li>
+                <span class="name">Genre</span><span class="clm">:</span>
+                <span class="price">@Model.Books.Genres.GenreName</span>
+            </li>
+            <li>
+                <span class="name">Price</span><span class="clm">:</span>
+                <span class="price">$@Model.Books.Price</span>
+            </li>
+            <li>
+                <span class="name">Pages</span><span class="clm">:</span>
+                <span class="price">@Model.Books.Pages</span>
+            </li>
+            <li>
+                <span class="name">One Month Rent</span><span class="clm">:</span>
+                <span class="price">$@ViewBag.OneMonthRent</span>
+            </li>
+            <li>
+                <span class="name">Six Months Rent</span><span class="clm">:</span>
+                <span class="price">$@ViewBag.SixMonthRent</span>
+            </li>
+            
+            <li>
+                <div class="form-group">
+                    <span class="name">Type Of Rent</span><span class="clm">:</span>
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.BookRent.RentTypeId, new SelectList(Model.RentType, "Id", "RentName"),"Select Rent Type", new { @class = "form-control", required = "required" } )
+                        @Html.ValidationMessageFor(model => model.BookRent.RentTypeId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                </li>
+            </ul>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Rent" class="btn btn-default" id="save" />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        
+    </div>
+</div>
+}
